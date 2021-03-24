@@ -1,0 +1,12 @@
+version: '3.7'
+volumes:
+  redis:
+    external: true
+    name: redis
+services:
+  redis:
+    image: redis
+    volumes:
+      - redis:/data
+    ports:
+      - 6379:6379

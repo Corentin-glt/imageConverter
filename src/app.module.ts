@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
+import { BullModule } from '@nestjs/bull';
+import { ImagesModule } from './images/images.module';
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    BullModule.forRootAsync({
+      useFactory: async () => ({
+        redis: {
+          host: 'localhost',
+          port: 6379,
+        },
+      }),
+    }),
+    ImagesModule,
+  ],
 })
 export class AppModule {}
